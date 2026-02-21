@@ -1,4 +1,4 @@
-# AdvancedDotNetPatternsDemo
+# Day 1 - AdvancedDotNetPatternsDemo
 An educational sample project demonstrating advanced .NET patterns, including:
 
 - Design Patterns (GoF)
@@ -46,3 +46,19 @@ These principles form the foundation for implementing CQRS, Domain Events, and m
 - Example: UiFactory for Light and Dark themes
 
 All examples are located in the Application/Patterns folder.
+
+## Day 4 – Creational Patterns (Part 2)
+
+### 1. Builder Pattern
+
+- Step-by-step construction of complex objects with a Fluent Interface
+- Example: OrderBuilder for creating orders with validation
+- Benefits: readability, control over optional parameters, avoids large constructors
+
+### 2. Prototype Pattern
+
+- Creating new objects by copying (cloning) an existing instance
+- Example: OrderTemplate with Deep Copy (manual list copying)
+- Benefits: fast creation in expensive scenarios, preserves initial state
+
+All code is located in the Application/Patterns folder.

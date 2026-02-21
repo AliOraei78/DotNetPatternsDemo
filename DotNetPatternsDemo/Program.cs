@@ -37,6 +37,35 @@ IUiFactory factoryUi = new DarkUiFactory();
 factoryUi.CreateButton().Render();
 factoryUi.CreateCheckbox().Render();
 
+var order = new OrderBuilder()
+    .WithCustomerName("Joe Jones")
+    .WithItem("Dell XPS Laptop")
+    .WithItem("Logitech Mouse")
+    .WithTotalAmount(45000000m)
+    .WithShippingAddress("NYC, Times Sq")
+    .WithPaymentMethod("Card-to-Card")
+    .Build();
+
+Console.WriteLine(order);
+
+var baseTemplate = new OrderTemplate
+{
+    TemplateName = "VIP Template",
+    CustomerCategory = "VIP",
+    DefaultItems = { "Special Product 1", "Special Product 2" },
+    DefaultDiscount = 15m
+};
+
+var newOrderTemplate = baseTemplate.Clone();
+newOrderTemplate.TemplateName = "New VIP Template";
+newOrderTemplate.DefaultItems.Add("Special Product 3"); // Should not affect base
+
+Console.WriteLine("Base Template:");
+Console.WriteLine(baseTemplate);
+
+Console.WriteLine("\nCloned Template:");
+Console.WriteLine(newOrderTemplate);
+
 app.Run();
 
 
