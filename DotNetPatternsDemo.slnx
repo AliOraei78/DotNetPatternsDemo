@@ -1,4 +1,7 @@
 <Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
   <Project Path="DotNetPatternsDemo.Application/DotNetPatternsDemo.Application.csproj" />
   <Project Path="DotNetPatternsDemo.Domain/DotNetPatternsDemo.Domain.csproj" />
   <Project Path="DotNetPatternsDemo.Infrastructure/DotNetPatternsDemo.Infrastructure.csproj" />

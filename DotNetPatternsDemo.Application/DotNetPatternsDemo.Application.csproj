@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="SolidPrinciples\SingleResponsibilityExample.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\DotNetPatternsDemo.Domain\DotNetPatternsDemo.Domain.csproj" />
   </ItemGroup>
 
@@ -16,6 +20,10 @@
     <Folder Include="Interfaces\" />
     <Folder Include="DTOs\" />
     <Folder Include="Behaviors\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="SolidPrinciples\SingleResponsibilityExample.cs" />
   </ItemGroup>
 
   <ItemGroup>
