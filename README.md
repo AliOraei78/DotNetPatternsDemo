@@ -76,3 +76,23 @@ All code is located in the Application/Patterns folder.
 - Example: MenuComponent (MenuGroup and MenuItem)
 
 All implementations are located in the Application/Patterns folder.
+
+## Day 6 – Structural Patterns (Part 2) – Completing the Structural Category
+
+### 1. Decorator Pattern
+- Dynamically adds responsibilities without modifying the original class
+- Example: Logging and Timestamp for the notification service
+
+### 2. Facade Pattern
+- Simplified interface to a complex subsystem
+- Example: OrderProcessingFacade for full order processing
+
+### 3. Flyweight Pattern
+- Shares small, repetitive objects to save memory
+- Example: ProductType with a Flyweight factory
+
+### 4. Proxy Pattern
+- Controls access, caching, lazy loading, etc.
+- Example: CachingProxy for an expensive service
+
+All implementations are located in the Application/Patterns folder.

@@ -111,6 +111,45 @@ mainMenu.Display();
 
 Console.WriteLine("\n\n");
 
+INotificationService service = new BasicNotificationService();
+
+service = new LoggingNotificationDecorator(service);
+service = new TimestampNotificationDecorator(service);
+
+service.Send("user@example.com", "Test decorator");
+
+Console.WriteLine("\n\n");
+
+var facade = new OrderProcessingFacade();
+var orderB = new OrderBuilder()
+    .WithCustomerName("Joe Jonas")
+    .WithItem("Design Patterns Book")         // ← added this line
+    .WithTotalAmount(1200000m)
+    .WithShippingAddress("NYC, Book Sq") // optional
+    .Build();
+
+bool successB = facade.ProcessOrder(orderB);
+Console.WriteLine($"Order processed successfully: {successB}");
+
+Console.WriteLine("\n\n");
+
+var factoryProduct = new ProductTypeFactory();
+
+var laptopType = factoryProduct.GetProductType("Electronics", "Gaming Laptop", 45000000m);
+var phoneType = factoryProduct.GetProductType("Mobile", "Smartphone", 25000000m);
+
+laptopType.Display("Dell XPS 13", 5);
+phoneType.Display("iPhone 14", 10);
+laptopType.Display("Lenovo Legion", 3);  // Reuses the same previous Flyweight
+Console.WriteLine("\n\n");
+
+IExpensiveService serviceP = new CachingProxy(new RealExpensiveService());
+
+Console.WriteLine(serviceP.GetData("Product 1"));  // actual request
+Console.WriteLine(serviceP.GetData("Product 1"));  // from cache
+Console.WriteLine(serviceP.GetData("Product 2"));  // actual request
+Console.WriteLine("\n\n");
+
 app.Run();
 
 
