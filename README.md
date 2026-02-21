@@ -29,3 +29,20 @@ Day 1 – Foundations and Setup
 3. **Behavioral** (11 patterns) Chain of Responsibility, Command, Iterator, Mediator, Observer, State, Strategy, etc.
 
 These principles form the foundation for implementing CQRS, Domain Events, and more advanced architectural patterns in the project.
+
+## Day 3 – Creational Patterns (Part 1)
+
+### 1. Singleton
+- Ensures a single instance with global access
+- Modern implementation: Lazy<T> (thread-safe)
+- Example: LoggerSingleton
+
+### 2. Factory Method
+- Defines an interface for creating an object, but subclasses decide what to instantiate
+- Example: NotificationFactory for Email and SMS
+
+### 3. Abstract Factory
+- Creates a family of related objects without depending on concrete classes
+- Example: UiFactory for Light and Dark themes
+
+All examples are located in the Application/Patterns folder.
