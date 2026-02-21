@@ -27,11 +27,15 @@ Console.WriteLine(ReferenceEquals(logger1, logger2)
     ? "Same instance"
     : "Different instances");
 
+Console.WriteLine("\n\n");
+
 NotificationFactory factory = new EmailNotificationFactory();
 factory.SendNotification("user@example.com", "Hello, your order has been registered.");
 
 factory = new SmsNotificationFactory();
 factory.SendNotification("09123456789", "Your order has been confirmed.");
+
+Console.WriteLine("\n\n");
 
 IUiFactory factoryUi = new DarkUiFactory();
 factoryUi.CreateButton().Render();
@@ -47,6 +51,8 @@ var order = new OrderBuilder()
     .Build();
 
 Console.WriteLine(order);
+
+Console.WriteLine("\n\n");
 
 var baseTemplate = new OrderTemplate
 {
@@ -65,6 +71,45 @@ Console.WriteLine(baseTemplate);
 
 Console.WriteLine("\nCloned Template:");
 Console.WriteLine(newOrderTemplate);
+
+Console.WriteLine("\n\n");
+
+var legacy = new LegacyPaymentGateway();
+var adapter = new LegacyPaymentAdapter(legacy);
+
+bool success = adapter.ProcessPayment(1500000m, "1234-5678-9012-3456");
+Console.WriteLine($"Payment is success: {success}");
+
+Console.WriteLine("\n\n");
+
+IDevice tv = new Tv();
+AdvancedRemoteControl remote = new AdvancedRemoteControl(tv);
+
+remote.TurnOn();
+remote.SetVolume(25);
+remote.Mute();
+remote.TurnOff();
+
+Console.WriteLine("\n\n");
+
+var mainMenu = new MenuGroup("Main Menu");
+
+var fileMenu = new MenuGroup("File");
+fileMenu.Add(new MenuItem("New"));
+fileMenu.Add(new MenuItem("Open"));
+fileMenu.Add(new MenuItem("Save"));
+
+var editMenu = new MenuGroup("Edit");
+editMenu.Add(new MenuItem("Cut"));
+editMenu.Add(new MenuItem("Copy"));
+
+mainMenu.Add(fileMenu);
+mainMenu.Add(editMenu);
+mainMenu.Add(new MenuItem("Exit"));
+
+mainMenu.Display();
+
+Console.WriteLine("\n\n");
 
 app.Run();
 

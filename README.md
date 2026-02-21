@@ -50,15 +50,29 @@ All examples are located in the Application/Patterns folder.
 ## Day 4 – Creational Patterns (Part 2)
 
 ### 1. Builder Pattern
-
 - Step-by-step construction of complex objects with a Fluent Interface
 - Example: OrderBuilder for creating orders with validation
 - Benefits: readability, control over optional parameters, avoids large constructors
 
 ### 2. Prototype Pattern
-
 - Creating new objects by copying (cloning) an existing instance
 - Example: OrderTemplate with Deep Copy (manual list copying)
 - Benefits: fast creation in expensive scenarios, preserves initial state
 
 All code is located in the Application/Patterns folder.
+
+## Day 5 – Structural Patterns (Part 1)
+
+### 1. Adapter Pattern
+- Converts an incompatible interface into a compatible one
+- Example: LegacyPaymentAdapter for integrating a legacy gateway
+
+### 2. Bridge Pattern
+- Separates abstraction from implementation for independent changes
+- Example: RemoteControl with TV and Radio devices
+
+### 3. Composite Pattern
+- Tree structure (part-whole) with uniform behavior for leaves and composites
+- Example: MenuComponent (MenuGroup and MenuItem)
+
+All implementations are located in the Application/Patterns folder.
