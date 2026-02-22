@@ -272,6 +272,45 @@ machine.SelectProduct("Soda");
 machine.Dispense();
 Console.WriteLine("\n\n");
 
+// ------------------Strategy Pattern------------------------
+Console.WriteLine("------------------Strategy Pattern------------------------");
+var orderD = new OrderWithDiscount(1000000m, new NoDiscountStrategy());
+
+Console.WriteLine($"Final price (no discount): {orderD.GetFinalPrice():C}");
+
+orderD.SetDiscountStrategy(new PercentageDiscountStrategy(15));
+Console.WriteLine($"Final price (15% discount): {orderD.GetFinalPrice():C}");
+
+orderD.SetDiscountStrategy(new FixedAmountDiscountStrategy(200000));
+Console.WriteLine($"Final price (fixed 200,000 discount): {orderD.GetFinalPrice():C}");
+Console.WriteLine("\n\n");
+
+// ------------------Template Method Pattern------------------------
+Console.WriteLine("------------------Template Method Pattern------------------------");
+var onlineOrder = new OnlineOrderProcessing();
+onlineOrder.ProcessOrder();
+Console.WriteLine("\n\n");
+
+// ------------------Visitor Pattern------------------------
+Console.WriteLine("------------------Visitor Pattern------------------------");
+var products = new List<IProductElement>
+{
+    new PhysicalProduct("Laptop", 45000000m, 2.1m),
+    new DigitalProduct("E-Book", 150000m, "https://..."),
+    new PhysicalProduct("Mouse", 800000m, 0.15m)
+};
+
+var visitor = new ReportVisitor();
+
+foreach (var product in products)
+{
+    product.Accept(visitor);
+}
+
+Console.WriteLine($"\nTotal price: {visitor.TotalPrice:C}");
+Console.WriteLine($"Physical products: {visitor.PhysicalCount} | Digital products: {visitor.DigitalCount}");
+Console.WriteLine("\n\n");
+Console.WriteLine("\n\n");
 
 app.Run();
 

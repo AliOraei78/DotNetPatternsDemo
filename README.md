@@ -136,3 +136,20 @@ All implementations are located in the `Application/Patterns` folder.
 - Example: `VendingMachine` with multiple states
 
 All implementations are located in the `Application/Patterns` folder.
+
+## Day 9 – Behavioral Patterns (Part 3) – Completing the GoF Patterns
+
+### 1. Strategy
+- Swapping algorithms at runtime
+- Example: Different discount strategies for an order
+
+### 2. Template Method
+- Defining the skeleton of an algorithm while allowing step customization
+- Example: Online order processing workflow
+
+### 3. Visitor
+- Adding new operations without modifying existing classes
+- Example: Reporting and total calculation for physical and digital products
+
+**End of GoF Design Patterns section (23 patterns)**
+All implementations are located in the `Application/Patterns` folder.
