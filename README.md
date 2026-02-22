@@ -153,3 +153,17 @@ All implementations are located in the `Application/Patterns` folder.
 
 **End of GoF Design Patterns section (23 patterns)**
 All implementations are located in the `Application/Patterns` folder.
+
+## Day 10 – Dependency Injection Patterns
+
+### Main DI Patterns in .NET
+- **Constructor Injection** → Best practice and recommended (explicit, testable)
+- **Property Injection** → Only for optional dependencies (less recommended)
+- **Method Injection** → Useful for handlers and middleware (`[FromServices]`)
+- **Ambient Context** → Use with caution; often an anti-pattern (alternative: Scoped DI)
+
+### Implementation in a Project
+- Register services in `Program.cs` using `AddScoped` / `AddSingleton` / `AddTransient`
+- Example: `OrderService` using Constructor Injection with `IOrderRepository` and `ILoggerService`
+
+These patterns form the foundation for **MediatR** and **CQRS** in the upcoming days.

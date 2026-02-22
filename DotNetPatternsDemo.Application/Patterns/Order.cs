@@ -6,7 +6,7 @@ namespace AdvancedDotNetPatternsDemo.Application.Patterns
     // Product – complex final object
     public class Order
     {
-        public string OrderId { get; internal set; } = Guid.NewGuid().ToString();
+        public string OrderId { get; internal set; }
         public string CustomerName { get; internal set; } = string.Empty;
         public DateTime OrderDate { get; internal set; }
         public List<string> Items { get; internal set; } = new List<string>();

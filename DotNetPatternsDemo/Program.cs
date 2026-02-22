@@ -1,11 +1,18 @@
 using AdvancedDotNetPatternsDemo.Application.Patterns;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+// Registering services
+builder.Services.AddScoped<IOrderRepository, SqlOrderRepository>();
+builder.Services.AddScoped<ILoggerService, ConsoleLogger>();
+builder.Services.AddScoped<OrderService>();  // Automatic constructor injection
 
+// For simple testing
+builder.Services.AddSingleton<IOrderRepository, SqlOrderRepository>(); // Or Scoped
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -310,8 +317,35 @@ foreach (var product in products)
 Console.WriteLine($"\nTotal price: {visitor.TotalPrice:C}");
 Console.WriteLine($"Physical products: {visitor.PhysicalCount} | Digital products: {visitor.DigitalCount}");
 Console.WriteLine("\n\n");
+
+// ------------------Ambient Context------------------------
+Console.WriteLine("------------------Ambient Context------------------------");
+UserContext.CurrentUserId = "user123";
+Console.WriteLine(UserContext.CurrentUserId);
 Console.WriteLine("\n\n");
 
-app.Run();
+// ------------------Method Injection------------------------
+Console.WriteLine("------------------Method Injection------------------------");
+app.MapGet("/orders/{id}", (string id, [FromServices] IOrderRepository repo) =>
+{
+    // Method Injection using [FromServices]
+    repo.Save(new OrderBuilder().WithCustomerName("Jack").Build());
+    return Results.Ok();
+});
 
+// ------------------Constructor injection------------------------
+Console.WriteLine("------------------Constructor injection------------------------");
+app.MapGet("/test-di", (OrderService service) =>
+{
+    var order = new OrderBuilder()
+        .WithCustomerName("DI Test")
+        .WithItem("Test Product")
+        .WithTotalAmount(1000000m)
+        .Build();
+
+    service.CreateOrder(order);
+    return Results.Ok("Order created using DI");
+});
+
+app.Run();
 

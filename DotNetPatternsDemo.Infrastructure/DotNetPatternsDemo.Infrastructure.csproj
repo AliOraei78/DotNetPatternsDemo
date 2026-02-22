@@ -15,7 +15,6 @@
     <Folder Include="Messaging\" />
     <Folder Include="Outbox\" />
     <Folder Include="Services\" />
-    <Folder Include="Persistence\" />
   </ItemGroup>
 
   <ItemGroup>

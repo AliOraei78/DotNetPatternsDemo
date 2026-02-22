@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Patterns\CreateOrderHandler.cs" />
     <Compile Remove="SolidPrinciples\SingleResponsibilityExample.cs" />
   </ItemGroup>
 
@@ -17,12 +18,12 @@
   <ItemGroup>
     <Folder Include="Features\" />
     <Folder Include="Common\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="DTOs\" />
     <Folder Include="Behaviors\" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Patterns\CreateOrderHandler.cs" />
     <None Include="SolidPrinciples\SingleResponsibilityExample.cs" />
   </ItemGroup>
 
