@@ -150,6 +150,50 @@ Console.WriteLine(serviceP.GetData("Product 1"));  // from cache
 Console.WriteLine(serviceP.GetData("Product 2"));  // actual request
 Console.WriteLine("\n\n");
 
+var supervisor = new Supervisor();
+var manager = new Manager();
+var hr = new HRDirector();
+
+supervisor.SetNext(manager);
+manager.SetNext(hr);
+
+var request = new LeaveRequest { Days = 5, Employee = "Sam Smith" };
+supervisor.ProcessRequest(request);  // Manager will handle
+Console.WriteLine("\n\n");
+
+var light = new Light();
+var remoteC = new RemoteController();
+
+remoteC.SetCommand(new LightOnCommand(light));
+remoteC.PressButton();   // On
+remoteC.PressUndo();     // Off
+Console.WriteLine("\n\n");
+
+var context = new Dictionary<string, int> { { "x", 10 }, { "y", 3 } };
+
+var expression = new Minus(
+    new Plus(new Variable("x"), new Number(5)),
+    new Variable("y")
+);
+
+int result = expression.Interpret(context);
+Console.WriteLine($"Result: {result}");  // 12
+Console.WriteLine("\n\n");
+
+var root = new TreeNode(1);
+var child1 = new TreeNode(2); root.Add(child1);
+var child2 = new TreeNode(3); root.Add(child2);
+child1.Add(new TreeNode(4));
+
+var iterator = new DepthFirstIterator(root);
+while (iterator.MoveNext())
+{
+    Console.WriteLine(iterator.Current.Value);  // 1 → 3 → 2 → 4
+}
+Console.WriteLine("\n\n");
+
+
+
 app.Run();
 
 

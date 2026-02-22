@@ -96,3 +96,23 @@ All implementations are located in the Application/Patterns folder.
 - Example: CachingProxy for an expensive service
 
 All implementations are located in the Application/Patterns folder.
+
+## Day 7 – Behavioral Patterns (Part 1)
+
+### 1. Chain of Responsibility
+- Processing requests through a chain of handlers
+- Example: Leave approval based on management level
+
+### 2. Command
+- Encapsulating a request as a standalone object (foundation of CQRS)
+- Example: Light on/off controller with undo functionality
+
+### 3. Interpreter
+- Interpreting the grammar of a simple language
+- Example: Evaluating a mathematical expression (addition, subtraction, variables)
+
+### 4. Iterator
+- Sequential access to elements of a collection without exposing its internal structure
+- Example: Depth-First traversal of a tree
+
+All implementations are located in the `Application/Patterns` folder.
