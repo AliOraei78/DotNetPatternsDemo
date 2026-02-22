@@ -1,4 +1,5 @@
-﻿namespace AdvancedDotNetPatternsDemo.Application.Patterns
+﻿// Composite Pattern
+namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {
     // Component
     public abstract class MenuComponent

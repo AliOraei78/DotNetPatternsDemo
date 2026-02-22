@@ -1,4 +1,5 @@
-﻿namespace AdvancedDotNetPatternsDemo.Application.Patterns
+﻿// Facade Pattern
+namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {
     // Complex subsystems (simulation only)
     public class OrderValidator

@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Prototype Pattern
+using System;
 using System.Collections.Generic;
 
 namespace AdvancedDotNetPatternsDemo.Application.Patterns

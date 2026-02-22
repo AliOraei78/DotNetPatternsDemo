@@ -1,4 +1,5 @@
-﻿namespace AdvancedDotNetPatternsDemo.Application.Patterns
+﻿// Proxy Pattern
+namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {
     public interface IExpensiveService
     {

@@ -1,4 +1,5 @@
-﻿namespace AdvancedDotNetPatternsDemo.Application.Patterns
+﻿// Adapter Pattern
+namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {
     // Target interface (expected by the new system)
     public interface IPaymentProcessor

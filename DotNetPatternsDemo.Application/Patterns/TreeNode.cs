@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿// Iterator Pattern
+using System.Collections;
 
 namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿// Singleton Pattern
+using System;
 
 namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {

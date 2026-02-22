@@ -1,4 +1,5 @@
-﻿namespace AdvancedDotNetPatternsDemo.Application.Patterns
+﻿// Factory Method Pattern
+namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {
     // Creator – base class with Factory Method
     public abstract class NotificationFactory

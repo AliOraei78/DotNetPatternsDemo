@@ -1,4 +1,5 @@
-﻿namespace AdvancedDotNetPatternsDemo.Application.Patterns
+﻿// Flyweight Pattern
+namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {
     // Flyweight (intrinsic state – shared)
     public class ProductType

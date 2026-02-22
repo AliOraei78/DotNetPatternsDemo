@@ -1,4 +1,5 @@
-﻿namespace AdvancedDotNetPatternsDemo.Application.Patterns
+﻿// Command Pattern
+namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {
     // Receiver
     public class Light

@@ -1,4 +1,5 @@
-﻿namespace AdvancedDotNetPatternsDemo.Application.Patterns
+﻿// Chain of Responsibility Pattern
+namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {
     public class LeaveRequest
     {

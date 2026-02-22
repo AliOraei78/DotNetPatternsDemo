@@ -1,4 +1,5 @@
-﻿namespace AdvancedDotNetPatternsDemo.Application.Patterns
+﻿// Bridge Pattern
+namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {
     // Abstraction
     public abstract class RemoteControl

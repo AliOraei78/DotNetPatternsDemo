@@ -116,3 +116,23 @@ All implementations are located in the Application/Patterns folder.
 - Example: Depth-First traversal of a tree
 
 All implementations are located in the `Application/Patterns` folder.
+
+## Day 8 – Behavioral Patterns (Part 2)
+
+### 1. Mediator
+- Centralizes communication between objects
+- Example: `ChatRoom` as a messaging mediator
+
+### 2. Memento
+- Saves and restores state without breaking encapsulation
+- Example: `TextEditor` with undo capability
+
+### 3. Observer
+- Automatically notifies dependents of state changes
+- Example: `NewsPublisher` and its subscribers
+
+### 4. State
+- Changes an object's behavior based on its internal state
+- Example: `VendingMachine` with multiple states
+
+All implementations are located in the `Application/Patterns` folder.

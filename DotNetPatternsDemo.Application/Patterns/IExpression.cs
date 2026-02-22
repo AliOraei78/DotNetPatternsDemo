@@ -1,4 +1,5 @@
-﻿namespace AdvancedDotNetPatternsDemo.Application.Patterns
+﻿// Interpreter Pattern
+namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {
     public interface IExpression
     {

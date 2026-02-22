@@ -1,4 +1,5 @@
-﻿namespace AdvancedDotNetPatternsDemo.Application.Patterns
+﻿// Abstract Factory Pattern
+namespace AdvancedDotNetPatternsDemo.Application.Patterns
 {
     // Abstract Product A
     public interface IButton
