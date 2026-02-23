@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DotNetPatternsDemo.Application\DotNetPatternsDemo.Application.csproj" />
+    <ProjectReference Include="..\DotNetPatternsDemo.Domain\DotNetPatternsDemo.Domain.csproj" />
     <ProjectReference Include="..\DotNetPatternsDemo.Infrastructure\DotNetPatternsDemo.Infrastructure.csproj" />
   </ItemGroup>
 

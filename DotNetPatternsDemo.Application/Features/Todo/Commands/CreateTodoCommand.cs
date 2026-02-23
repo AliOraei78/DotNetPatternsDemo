@@ -1,5 +1,6 @@
-﻿using MediatR;
-using AdvancedDotNetPatternsDemo.Domain.Entities;
+﻿using AdvancedDotNetPatternsDemo.Domain.Entities;
+using AdvancedDotNetPatternsDemo.Domain.Outbox;
+using MediatR;
 
 namespace AdvancedDotNetPatternsDemo.Application.Features.Todo.Commands
 {
@@ -10,11 +11,13 @@ namespace AdvancedDotNetPatternsDemo.Application.Features.Todo.Commands
     {
         private readonly ITodoRepository _repository;
         private readonly IPublisher _publisher;   // ← MediatR Publisher for event publishing
+        private readonly AppDbContext _dbContext; // ← EF Core DbContext for outbox access
 
-        public CreateTodoCommandHandler(ITodoRepository repository, IPublisher publisher)
+        public CreateTodoCommandHandler(ITodoRepository repository, IPublisher publisher, AppDbContext dbContext)
         {
             _repository = repository;
             _publisher = publisher;
+            _dbContext = dbContext;
         }
 
         public async Task<Guid> Handle(CreateTodoCommand request, CancellationToken cancellationToken)
@@ -22,13 +25,15 @@ namespace AdvancedDotNetPatternsDemo.Application.Features.Todo.Commands
             var todo = TodoItem.Create(request.Title, request.Description, request.DueDate);
 
             await _repository.AddAsync(todo);
-            await _repository.SaveChangesAsync();
 
             // Publish all domain events
             foreach (var domainEvent in todo.DomainEvents)
             {
-                await _publisher.Publish(domainEvent, cancellationToken);
+                var outboxMsg = OutboxMessage.Create(domainEvent);
+                _dbContext.OutboxMessages.Add(outboxMsg);
             }
+
+            await _dbContext.SaveChangesAsync(cancellationToken);
 
             todo.ClearDomainEvents(); // Clear after publishing
 

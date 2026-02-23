@@ -2,8 +2,10 @@ using AdvancedDotNetPatternsDemo.Application.Features.Todo.Commands;
 using AdvancedDotNetPatternsDemo.Application.Features.Todo.Queries;
 using AdvancedDotNetPatternsDemo.Application.Patterns;
 using AdvancedDotNetPatternsDemo.Infrastructure.Persistence;
+using Hangfire;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,7 +14,22 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString, b =>
+        /* English comment: 
+           Explicitly set the assembly where migrations will be generated.
+           Replace "DotNetPatternsDemo.Application" with your actual Application project name. 
+        */
+        b.MigrationsAssembly("DotNetPatternsDemo.Application")));
+builder.Services.AddHangfire(config => config
+    .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
+    .UseSimpleAssemblyNameTypeSerializer()
+    .UseRecommendedSerializerSettings()
+    .UseSqlServerStorage(connectionString));
 // Registering services
+builder.Services.AddHangfireServer();
+builder.Services.AddScoped<OutboxProcessorJob>();
 builder.Services.AddLogging();
 builder.Services.AddScoped<IOrderRepository, SqlOrderRepository>();
 builder.Services.AddScoped<ILoggerService, ConsoleLogger>();
@@ -39,6 +56,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseHangfireDashboard();
+RecurringJob.AddOrUpdate<OutboxProcessorJob>(
+    "outbox-processor",
+    job => job.ProcessPendingMessages(),
+    "*/10 * * * * *");
 
 // In the Main method or somewhere for testing
 // ------------------Singleton Pattern------------------------
@@ -342,7 +364,6 @@ Console.WriteLine(UserContext.CurrentUserId);
 Console.WriteLine("\n\n");
 
 // ------------------Method Injection------------------------
-Console.WriteLine("------------------Method Injection------------------------");
 app.MapGet("/orders/{id}", (string id, [FromServices] IOrderRepository repo) =>
 {
     // Method Injection using [FromServices]
@@ -351,7 +372,6 @@ app.MapGet("/orders/{id}", (string id, [FromServices] IOrderRepository repo) =>
 });
 
 // ------------------Constructor injection------------------------
-Console.WriteLine("------------------Constructor injection------------------------");
 app.MapGet("/test-di", (OrderService service) =>
 {
     var order = new OrderBuilder()

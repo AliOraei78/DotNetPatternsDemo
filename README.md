@@ -185,3 +185,11 @@ These patterns form the foundation for **MediatR** and **CQRS** in the upcoming 
 - Publish events using MediatR `IPublisher` in the Command Handler
 - Sample handlers for logging and side-effects
 - Separate domain logic from side-effects → ensures **Single Responsibility** and **loose coupling**
+
+## Day 13 – Outbox Pattern
+
+- `OutboxMessage` table for atomic event storage
+- Persisting domain events to the Outbox within the Command Handler
+- Background processing with Hangfire (recurring job + retry mechanism)
+- Handling distributed transactions without 2PC (Two-Phase Commit)
+- Hangfire dashboard for monitoring and manual retry
