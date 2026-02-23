@@ -1,15 +1,29 @@
+using AdvancedDotNetPatternsDemo.Application.Features.Todo.Commands;
+using AdvancedDotNetPatternsDemo.Application.Features.Todo.Queries;
 using AdvancedDotNetPatternsDemo.Application.Patterns;
+using AdvancedDotNetPatternsDemo.Infrastructure.Persistence;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddSwaggerGen();
 // Registering services
 builder.Services.AddScoped<IOrderRepository, SqlOrderRepository>();
 builder.Services.AddScoped<ILoggerService, ConsoleLogger>();
 builder.Services.AddScoped<OrderService>();  // Automatic constructor injection
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
+    typeof(CreateTodoCommand).Assembly,
+    typeof(GetTodoByIdQuery).Assembly
+));
+builder.Services.AddSingleton<InMemoryTodoRepository>();
+builder.Services.AddSingleton<ITodoRepository>(sp => sp.GetRequiredService<InMemoryTodoRepository>());
+
+builder.Services.TryAddSingleton<ITodoReadRepository, InMemoryTodoReadRepository>();
 
 // For simple testing
 builder.Services.AddSingleton<IOrderRepository, SqlOrderRepository>(); // Or Scoped
@@ -19,6 +33,8 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
@@ -345,6 +361,30 @@ app.MapGet("/test-di", (OrderService service) =>
 
     service.CreateOrder(order);
     return Results.Ok("Order created using DI");
+});
+
+app.MapPost("/todos", async (IMediator mediator, CreateTodoCommand cmd) =>
+{
+    var id = await mediator.Send(cmd);
+    return Results.Created($"/todos/{id}", new { Id = id });
+});
+
+app.MapGet("/todos/{id:guid}", async (IMediator mediator, Guid id) =>
+{
+    var todo = await mediator.Send(new GetTodoByIdQuery(id));
+    return todo is null ? Results.NotFound() : Results.Ok(todo);
+});
+
+app.MapGet("/todos", async (IMediator mediator) =>
+{
+    var todos = await mediator.Send(new GetAllTodosQuery());
+    return Results.Ok(todos);
+});
+
+app.MapPut("/todos/{id:guid}/complete", async (IMediator mediator, Guid id) =>
+{
+    var success = await mediator.Send(new CompleteTodoCommand(id));
+    return success ? Results.Ok() : Results.NotFound();
 });
 
 app.Run();

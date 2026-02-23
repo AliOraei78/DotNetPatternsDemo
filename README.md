@@ -167,3 +167,13 @@ All implementations are located in the `Application/Patterns` folder.
 - Example: `OrderService` using Constructor Injection with `IOrderRepository` and `ILoggerService`
 
 These patterns form the foundation for **MediatR** and **CQRS** in the upcoming days.
+
+## Day 11 – CQRS with MediatR
+
+- New domain: `TodoItem` (task management)
+- Separation of Command (write side) and Query (read side)
+- Using MediatR to send Commands and Queries
+- Commands: `CreateTodoCommand`, `CompleteTodoCommand`
+- Queries: `GetTodoByIdQuery`, `GetAllTodosQuery`
+- Separate repositories for write and read (currently InMemory)
+- Registering MediatR and testing with Minimal API endpoints
