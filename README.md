@@ -177,3 +177,11 @@ These patterns form the foundation for **MediatR** and **CQRS** in the upcoming 
 - Queries: `GetTodoByIdQuery`, `GetAllTodosQuery`
 - Separate repositories for write and read (currently InMemory)
 - Registering MediatR and testing with Minimal API endpoints
+
+## Day 12 – Domain Events in DDD + Integration with CQRS
+
+- Define Domain Events (`TodoCreatedEvent`, `TodoCompletedEvent`)
+- Collect events inside the Aggregate (`TodoItem`)
+- Publish events using MediatR `IPublisher` in the Command Handler
+- Sample handlers for logging and side-effects
+- Separate domain logic from side-effects → ensures **Single Responsibility** and **loose coupling**

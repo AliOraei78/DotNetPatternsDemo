@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdvancedDotNetPatternsDemo.Domain.DomainEvents;
+using System;
 
 namespace AdvancedDotNetPatternsDemo.Domain.Entities
 {
@@ -10,6 +11,9 @@ namespace AdvancedDotNetPatternsDemo.Domain.Entities
         public bool IsCompleted { get; private set; }
         public DateTime CreatedAt { get; private set; }
         public DateTime? DueDate { get; private set; }
+        private readonly List<IDomainEvent> _domainEvents = new();
+
+        public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
         // Constructor for initial creation (a domain factory method would be better,
         // but kept simple for now)
@@ -20,7 +24,7 @@ namespace AdvancedDotNetPatternsDemo.Domain.Entities
             if (string.IsNullOrWhiteSpace(title))
                 throw new ArgumentException("Task title is required.", nameof(title));
 
-            return new TodoItem
+            var todo = new TodoItem
             {
                 Id = Guid.NewGuid(),
                 Title = title.Trim(),
@@ -29,6 +33,9 @@ namespace AdvancedDotNetPatternsDemo.Domain.Entities
                 CreatedAt = DateTime.UtcNow,
                 DueDate = dueDate
             };
+
+            todo.AddDomainEvent(new TodoCreatedEvent(todo));
+            return todo;
         }
 
         public void MarkAsCompleted()
@@ -37,6 +44,7 @@ namespace AdvancedDotNetPatternsDemo.Domain.Entities
                 throw new InvalidOperationException("Task has already been completed.");
 
             IsCompleted = true;
+            AddDomainEvent(new TodoCompletedEvent(Id));
         }
 
         public void UpdateTitle(string newTitle)
@@ -45,6 +53,16 @@ namespace AdvancedDotNetPatternsDemo.Domain.Entities
                 throw new ArgumentException("New title cannot be empty.");
 
             Title = newTitle.Trim();
+        }
+
+        protected void AddDomainEvent(IDomainEvent domainEvent)
+        {
+            _domainEvents.Add(domainEvent);
+        }
+
+        public void ClearDomainEvents()
+        {
+            _domainEvents.Clear();
         }
     }
 }

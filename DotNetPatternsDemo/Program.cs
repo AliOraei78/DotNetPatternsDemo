@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddOpenApi();
 builder.Services.AddSwaggerGen();
 // Registering services
+builder.Services.AddLogging();
 builder.Services.AddScoped<IOrderRepository, SqlOrderRepository>();
 builder.Services.AddScoped<ILoggerService, ConsoleLogger>();
 builder.Services.AddScoped<OrderService>();  // Automatic constructor injection
